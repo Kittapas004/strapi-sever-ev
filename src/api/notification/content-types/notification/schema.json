@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notifications",
+  "info": {
+    "singularName": "notification",
+    "pluralName": "notifications",
+    "displayName": "Notification"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "customer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::customer.customer",
+      "inversedBy": "notifications"
+    },
+    "message": {
+      "type": "string"
+    },
+    "statusNT": {
+      "type": "enumeration",
+      "enum": [
+        "unread ",
+        "read"
+      ]
+    }
+  }
+}
