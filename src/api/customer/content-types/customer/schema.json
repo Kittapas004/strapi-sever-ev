@@ -23,12 +23,6 @@
     "phoneNumber": {
       "type": "string"
     },
-    "role": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "plugin::users-permissions.user",
-      "mappedBy": "Role"
-    },
     "vehicles": {
       "type": "relation",
       "relation": "oneToMany",

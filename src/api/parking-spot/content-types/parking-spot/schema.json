@@ -4,7 +4,8 @@
   "info": {
     "singularName": "parking-spot",
     "pluralName": "parking-spots",
-    "displayName": "ParkingSpot"
+    "displayName": "ParkingSpot",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,10 +16,10 @@
       "type": "string"
     },
     "latitude": {
-      "type": "decimal"
+      "type": "text"
     },
     "longitude": {
-      "type": "decimal"
+      "type": "text"
     }
   }
 }

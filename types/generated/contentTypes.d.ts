@@ -397,10 +397,6 @@ export interface ApiCustomerCustomer extends Struct.CollectionTypeSchema {
     password: Schema.Attribute.Password;
     phoneNumber: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    role: Schema.Attribute.Relation<
-      'oneToMany',
-      'plugin::users-permissions.user'
-    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -443,6 +439,7 @@ export interface ApiNotificationNotification
 export interface ApiParkingSpotParkingSpot extends Struct.CollectionTypeSchema {
   collectionName: 'parking_spots';
   info: {
+    description: '';
     displayName: 'ParkingSpot';
     pluralName: 'parking-spots';
     singularName: 'parking-spot';
@@ -454,7 +451,7 @@ export interface ApiParkingSpotParkingSpot extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    latitude: Schema.Attribute.Decimal;
+    latitude: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -462,7 +459,7 @@ export interface ApiParkingSpotParkingSpot extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     location: Schema.Attribute.String;
-    longitude: Schema.Attribute.Decimal;
+    longitude: Schema.Attribute.Text;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -509,6 +506,7 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
 export interface ApiReservationReservation extends Struct.CollectionTypeSchema {
   collectionName: 'reservations';
   info: {
+    description: '';
     displayName: 'Reservation';
     pluralName: 'reservations';
     singularName: 'reservation';
@@ -521,13 +519,21 @@ export interface ApiReservationReservation extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     customer: Schema.Attribute.Relation<'oneToOne', 'api::customer.customer'>;
+    endTime: Schema.Attribute.DateTime;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::reservation.reservation'
     > &
       Schema.Attribute.Private;
+    parking_spot: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::parking-spot.parking-spot'
+    >;
     publishedAt: Schema.Attribute.DateTime;
+    startTime: Schema.Attribute.DateTime;
+    statusRV: Schema.Attribute.Enumeration<['active', 'canceled']>;
+    totalCost: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1015,7 +1021,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1047,7 +1052,6 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    Role: Schema.Attribute.Relation<'manyToOne', 'api::customer.customer'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "reservation",
     "pluralName": "reservations",
-    "displayName": "Reservation"
+    "displayName": "Reservation",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,6 +16,27 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::customer.customer"
+    },
+    "parking_spot": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::parking-spot.parking-spot"
+    },
+    "startTime": {
+      "type": "datetime"
+    },
+    "endTime": {
+      "type": "datetime"
+    },
+    "totalCost": {
+      "type": "decimal"
+    },
+    "statusRV": {
+      "type": "enumeration",
+      "enum": [
+        "active",
+        "canceled"
+      ]
     }
   }
 }
