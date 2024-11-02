@@ -11,12 +11,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "customer": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::customer.customer",
-      "inversedBy": "notifications"
-    },
     "message": {
       "type": "string"
     },

@@ -11,17 +11,17 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "customer": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::customer.customer",
-      "inversedBy": "vehicles"
-    },
     "brand": {
       "type": "string"
     },
     "model": {
       "type": "string"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "vehicles"
     }
   }
 }

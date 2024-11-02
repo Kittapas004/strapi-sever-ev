@@ -16,11 +16,6 @@
       "relation": "oneToOne",
       "target": "api::reservation.reservation"
     },
-    "customer": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::customer.customer"
-    },
     "amount": {
       "type": "decimal"
     },

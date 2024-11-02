@@ -369,42 +369,6 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiCustomerCustomer extends Struct.CollectionTypeSchema {
-  collectionName: 'customers';
-  info: {
-    displayName: 'Customer';
-    pluralName: 'customers';
-    singularName: 'customer';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    email: Schema.Attribute.Email;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::customer.customer'
-    > &
-      Schema.Attribute.Private;
-    notifications: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::notification.notification'
-    >;
-    password: Schema.Attribute.Password;
-    phoneNumber: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    username: Schema.Attribute.String;
-    vehicles: Schema.Attribute.Relation<'oneToMany', 'api::vehicle.vehicle'>;
-  };
-}
-
 export interface ApiNotificationNotification
   extends Struct.CollectionTypeSchema {
   collectionName: 'notifications';
@@ -420,7 +384,6 @@ export interface ApiNotificationNotification
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    customer: Schema.Attribute.Relation<'manyToOne', 'api::customer.customer'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -482,7 +445,6 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    customer: Schema.Attribute.Relation<'oneToOne', 'api::customer.customer'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -518,7 +480,6 @@ export interface ApiReservationReservation extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    customer: Schema.Attribute.Relation<'oneToOne', 'api::customer.customer'>;
     endTime: Schema.Attribute.DateTime;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -555,7 +516,6 @@ export interface ApiVehicleVehicle extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    customer: Schema.Attribute.Relation<'manyToOne', 'api::customer.customer'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -567,6 +527,10 @@ export interface ApiVehicleVehicle extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1040,11 +1004,16 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
+    notifications: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::notification.notification'
+    >;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    phoneNumber: Schema.Attribute.String;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
@@ -1061,6 +1030,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
+    vehicles: Schema.Attribute.Relation<'oneToMany', 'api::vehicle.vehicle'>;
   };
 }
 
@@ -1074,7 +1044,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::customer.customer': ApiCustomerCustomer;
       'api::notification.notification': ApiNotificationNotification;
       'api::parking-spot.parking-spot': ApiParkingSpotParkingSpot;
       'api::payment.payment': ApiPaymentPayment;

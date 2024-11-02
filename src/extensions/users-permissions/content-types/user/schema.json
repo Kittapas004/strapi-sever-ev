@@ -64,6 +64,20 @@
       "target": "plugin::users-permissions.role",
       "inversedBy": "users",
       "configurable": false
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "vehicles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::vehicle.vehicle",
+      "mappedBy": "user"
+    },
+    "notifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::notification.notification"
     }
   }
 }

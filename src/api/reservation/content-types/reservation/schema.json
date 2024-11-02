@@ -12,11 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "customer": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::customer.customer"
-    },
     "parking_spot": {
       "type": "relation",
       "relation": "oneToOne",
