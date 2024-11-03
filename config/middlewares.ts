@@ -5,7 +5,7 @@ export default [
   {
     name: 'strapi::cors',
     config: {
-      origin: ['http://localhost:5173'], // Allow your Vue.js app's URL
+      origin: '*', // Allow your Vue.js app's URL
       methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify the allowed methods
       allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
       credentials: true, // Allow credentials
