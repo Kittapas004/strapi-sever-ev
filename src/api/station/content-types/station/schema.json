@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stations",
+  "info": {
+    "singularName": "station",
+    "pluralName": "stations",
+    "displayName": "Station",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "localtion": {
+      "type": "string"
+    },
+    "charger_slots": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::charger.charger"
+    }
+  }
+}

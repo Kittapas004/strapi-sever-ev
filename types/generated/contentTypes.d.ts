@@ -369,6 +369,35 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiChargerCharger extends Struct.CollectionTypeSchema {
+  collectionName: 'chargers';
+  info: {
+    displayName: 'Charger';
+    pluralName: 'chargers';
+    singularName: 'charger';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    available: Schema.Attribute.Boolean;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::charger.charger'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiNotificationNotification
   extends Struct.CollectionTypeSchema {
   collectionName: 'notifications';
@@ -495,6 +524,40 @@ export interface ApiReservationReservation extends Struct.CollectionTypeSchema {
     startTime: Schema.Attribute.DateTime;
     statusRV: Schema.Attribute.Enumeration<['active', 'canceled']>;
     totalCost: Schema.Attribute.Decimal;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStationStation extends Struct.CollectionTypeSchema {
+  collectionName: 'stations';
+  info: {
+    description: '';
+    displayName: 'Station';
+    pluralName: 'stations';
+    singularName: 'station';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    charger_slots: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::charger.charger'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::station.station'
+    > &
+      Schema.Attribute.Private;
+    localtion: Schema.Attribute.String;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1044,10 +1107,12 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::charger.charger': ApiChargerCharger;
       'api::notification.notification': ApiNotificationNotification;
       'api::parking-spot.parking-spot': ApiParkingSpotParkingSpot;
       'api::payment.payment': ApiPaymentPayment;
       'api::reservation.reservation': ApiReservationReservation;
+      'api::station.station': ApiStationStation;
       'api::vehicle.vehicle': ApiVehicleVehicle;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
