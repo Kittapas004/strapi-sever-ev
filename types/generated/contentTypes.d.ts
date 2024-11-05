@@ -570,7 +570,8 @@ export interface ApiVehicleVehicle extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    yourcar: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    yourcar: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.Required;
   };
 }
 
