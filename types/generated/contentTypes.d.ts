@@ -392,6 +392,7 @@ export interface ApiChargerCharger extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    station: Schema.Attribute.Relation<'manyToOne', 'api::station.station'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -422,37 +423,6 @@ export interface ApiNotificationNotification
     message: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     statusNT: Schema.Attribute.Enumeration<['unread ', 'read']>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiParkingSpotParkingSpot extends Struct.CollectionTypeSchema {
-  collectionName: 'parking_spots';
-  info: {
-    description: '';
-    displayName: 'ParkingSpot';
-    pluralName: 'parking-spots';
-    singularName: 'parking-spot';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    latitude: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::parking-spot.parking-spot'
-    > &
-      Schema.Attribute.Private;
-    location: Schema.Attribute.String;
-    longitude: Schema.Attribute.Text;
-    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -509,19 +479,15 @@ export interface ApiReservationReservation extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    endTime: Schema.Attribute.DateTime;
+    endTime: Schema.Attribute.Time;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::reservation.reservation'
     > &
       Schema.Attribute.Private;
-    parking_spot: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::parking-spot.parking-spot'
-    >;
     publishedAt: Schema.Attribute.DateTime;
-    startTime: Schema.Attribute.DateTime;
+    startTime: Schema.Attribute.Time;
     statusRV: Schema.Attribute.Enumeration<['active', 'canceled']>;
     totalCost: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
@@ -1109,7 +1075,6 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::charger.charger': ApiChargerCharger;
       'api::notification.notification': ApiNotificationNotification;
-      'api::parking-spot.parking-spot': ApiParkingSpotParkingSpot;
       'api::payment.payment': ApiPaymentPayment;
       'api::reservation.reservation': ApiReservationReservation;
       'api::station.station': ApiStationStation;

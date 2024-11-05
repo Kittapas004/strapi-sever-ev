@@ -16,6 +16,12 @@
     },
     "available": {
       "type": "boolean"
+    },
+    "station": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::station.station",
+      "inversedBy": "charger_slots"
     }
   }
 }

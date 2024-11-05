@@ -21,7 +21,8 @@
     "charger_slots": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::charger.charger"
+      "target": "api::charger.charger",
+      "mappedBy": "station"
     }
   }
 }

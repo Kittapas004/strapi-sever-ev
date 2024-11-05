@@ -12,16 +12,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "parking_spot": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::parking-spot.parking-spot"
-    },
     "startTime": {
-      "type": "datetime"
+      "type": "time"
     },
     "endTime": {
-      "type": "datetime"
+      "type": "time"
     },
     "totalCost": {
       "type": "decimal"
