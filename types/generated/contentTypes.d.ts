@@ -392,6 +392,10 @@ export interface ApiChargerCharger extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    reservations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::reservation.reservation'
+    >;
     station: Schema.Attribute.Relation<'manyToOne', 'api::station.station'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -476,6 +480,7 @@ export interface ApiReservationReservation extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    charger: Schema.Attribute.Relation<'manyToOne', 'api::charger.charger'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

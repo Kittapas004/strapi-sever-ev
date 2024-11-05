@@ -22,6 +22,12 @@
       "relation": "manyToOne",
       "target": "api::station.station",
       "inversedBy": "charger_slots"
+    },
+    "reservations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::reservation.reservation",
+      "mappedBy": "charger"
     }
   }
 }

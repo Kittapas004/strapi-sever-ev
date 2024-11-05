@@ -27,6 +27,12 @@
         "active",
         "canceled"
       ]
+    },
+    "charger": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::charger.charger",
+      "inversedBy": "reservations"
     }
   }
 }
