@@ -33,6 +33,12 @@
       "relation": "manyToOne",
       "target": "api::charger.charger",
       "inversedBy": "reservations"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "reservations"
     }
   }
 }

@@ -78,6 +78,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::notification.notification"
+    },
+    "reservations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::reservation.reservation",
+      "mappedBy": "users_permissions_user"
     }
   }
 }
