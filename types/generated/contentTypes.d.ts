@@ -542,6 +542,7 @@ export interface ApiStationStation extends Struct.CollectionTypeSchema {
 export interface ApiVehicleVehicle extends Struct.CollectionTypeSchema {
   collectionName: 'vehicles';
   info: {
+    description: '';
     displayName: 'Vehicle';
     pluralName: 'vehicles';
     singularName: 'vehicle';
@@ -569,6 +570,7 @@ export interface ApiVehicleVehicle extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    yourcar: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
   };
 }
 

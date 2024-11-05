@@ -4,7 +4,8 @@
   "info": {
     "singularName": "vehicle",
     "pluralName": "vehicles",
-    "displayName": "Vehicle"
+    "displayName": "Vehicle",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -22,6 +23,16 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "vehicles"
+    },
+    "yourcar": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
