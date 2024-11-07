@@ -436,6 +436,7 @@ export interface ApiNotificationNotification
 export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
   collectionName: 'payments';
   info: {
+    description: '';
     displayName: 'Payment';
     pluralName: 'payments';
     singularName: 'payment';
@@ -444,19 +445,19 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    amount: Schema.Attribute.Decimal;
+    card_holder_name: Schema.Attribute.String & Schema.Attribute.Required;
+    cardNumber: Schema.Attribute.String & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    cvv: Schema.Attribute.String & Schema.Attribute.Required;
+    exp_date: Schema.Attribute.String & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::payment.payment'
     > &
       Schema.Attribute.Private;
-    paymentDate: Schema.Attribute.DateTime;
-    paymentMethod: Schema.Attribute.Enumeration<['credit_card', 'qrcode']>;
-    paymentStatus: Schema.Attribute.Enumeration<['pending', 'completed']>;
     publishedAt: Schema.Attribute.DateTime;
     reservation: Schema.Attribute.Relation<
       'oneToOne',
@@ -465,6 +466,10 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -491,6 +496,9 @@ export interface ApiReservationReservation extends Struct.CollectionTypeSchema {
       'api::reservation.reservation'
     > &
       Schema.Attribute.Private;
+    payment: Schema.Attribute.Relation<'oneToOne', 'api::payment.payment'>;
+    payment_status: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     publishedAt: Schema.Attribute.DateTime;
     startTime: Schema.Attribute.Time;
     statusRV: Schema.Attribute.Enumeration<['active', 'canceled']>;
@@ -1054,6 +1062,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    payments: Schema.Attribute.Relation<'oneToMany', 'api::payment.payment'>;
     phoneNumber: Schema.Attribute.String;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;

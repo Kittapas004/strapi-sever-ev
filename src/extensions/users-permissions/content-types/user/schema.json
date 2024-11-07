@@ -84,6 +84,12 @@
       "relation": "oneToMany",
       "target": "api::reservation.reservation",
       "mappedBy": "users_permissions_user"
+    },
+    "payments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::payment.payment",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

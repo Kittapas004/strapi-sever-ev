@@ -39,6 +39,16 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "reservations"
+    },
+    "payment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::payment.payment",
+      "mappedBy": "reservation"
+    },
+    "payment_status": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

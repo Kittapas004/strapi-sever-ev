@@ -4,7 +4,8 @@
   "info": {
     "singularName": "payment",
     "pluralName": "payments",
-    "displayName": "Payment"
+    "displayName": "Payment",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -14,27 +15,30 @@
     "reservation": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::reservation.reservation"
+      "target": "api::reservation.reservation",
+      "inversedBy": "payment"
     },
-    "amount": {
-      "type": "decimal"
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "payments"
     },
-    "paymentDate": {
-      "type": "datetime"
+    "cardNumber": {
+      "type": "string",
+      "required": true
     },
-    "paymentStatus": {
-      "type": "enumeration",
-      "enum": [
-        "pending",
-        "completed"
-      ]
+    "card_holder_name": {
+      "type": "string",
+      "required": true
     },
-    "paymentMethod": {
-      "type": "enumeration",
-      "enum": [
-        "credit_card",
-        "qrcode"
-      ]
+    "exp_date": {
+      "type": "string",
+      "required": true
+    },
+    "cvv": {
+      "type": "string",
+      "required": true
     }
   }
 }
